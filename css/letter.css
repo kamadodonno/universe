@@ -1,0 +1,35 @@
+body {
+  background: #fdf6f0;
+  font-family: 'Georgia', serif;
+  color: #4a2e2e;
+  line-height: 1.7;
+  padding: 2rem;
+}
+
+.letter-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem 3rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border: 2px solid #d9b8b8;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #8b4444;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+.signoff {
+  text-align: right;
+  font-style: italic;
+  font-weight: bold;
+  color: #6b3d3d;
+}
