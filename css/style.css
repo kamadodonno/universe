@@ -21,39 +21,53 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.typewriter {
+.typewriter-line {
+  font-size: 1.3rem;
+  white-space: pre-wrap;
   overflow: hidden;
   border-right: 2px solid white;
-  white-space: nowrap;
-  animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
-  font-size: 1.3rem;
-  width: 0;
-  margin: 20px auto;
+  display: inline-block;
+  animation: blink-caret 0.75s step-end infinite;
+  margin: 10px auto;
 }
 
-button {
-  padding: 12px 25px;
-  background-color: white;
-  color: #ff69b4;
-  border: none;
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
+}
+
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.btn {
+  text-decoration: none;
+  background: linear-gradient(135deg, #ffb6b9, #fae3d9);
+  color: #5a2a2a;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
   border-radius: 30px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 20px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-button:hover {
-  background-color: #ffe4e1;
+.btn:hover {
+  background: #fff;
+  border: 2px solid #ffb6b9;
+  color: #ff6f61;
+  transform: translateY(-3px);
 }
+
 
 @keyframes typing {
   from { width: 0 }
   to { width: 70% }
-}
-
-@keyframes blink {
-  50% { border-color: transparent }
 }
 
 @keyframes fadeIn {
