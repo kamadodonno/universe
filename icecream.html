@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Ice Cream</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f2ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #6b3fa0;
+      margin-bottom: 20px;
+    }
+    form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px;
+      width: 100%;
+      background-color: #6b3fa0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5c3290;
+    }
+    #statusMsg {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍨 Order Ice Cream</h1>
+  <form id="orderForm">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="text" name="flavor" placeholder="Favorite Flavor" required />
+    <input type="text" name="address" placeholder="Delivery Address" required />
+    <button type="submit">Order Now</button>
+  </form>
+
+  <p id="statusMsg"></p>
+
+  <script>
+    const form = document.getElementById("orderForm");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const message = `🍦 *New Ice Cream Order!*\n\n👤 Name: ${data.get('name')}\n🍧 Flavor: ${data.get('flavor')}\n📍 Address: ${data.get('address')}`;
+
+      const BOT_TOKEN = "7584186978:AAH4LeeJ6aLQLvE8s8XbLiZqlmZ5JPsrktM";
+      const CHAT_ID = "5041783596";
+
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          document.getElementById("statusMsg").textContent = "Order submitted successfully!";
+          form.reset();
+        } else {
+          document.getElementById("statusMsg").textContent = "Failed to submit. Try again.";
+        }
+      } catch (error) {
+        document.getElementById("statusMsg").textContent = "Error submitting the order.";
+      }
+    });
+  </script>
+</body>
+</html>
