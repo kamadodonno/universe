@@ -2,47 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For Someone Special</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanika's Corner</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fbefff, #e4d4ff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      padding: 50px 20px;
+    }
+    h1 {
+      color: #6b3fa0;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+    .btn {
+      background-color: #6b3fa0;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #5a2e85;
+    }
+    .section {
+      margin-top: 50px;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 999;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 998;
+    }
+    .hidden {
+      display: none;
+    }
+
+    #memoriesList {
+      margin-top: 10px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    #memoriesList a {
+      display: block;
+      margin: 5px 0;
+      color: #6b3fa0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #memoriesList a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <div class="hero">
-    <h2>Hey Kanika 💖</h2>
-    <p>A VERY VERY VERY HAPPY BITHDAY TO YOU <br>here i have something for you... but you need to guess the password first!</p>
+  <div class="container">
+    <h1>Welcome to Our Little Corner 💜</h1>
+    <p>A journey of laughs, surprises, ice creams, and everything Kanika 🌸</p>
+    <button class="btn" id="memoriesBtn">📚 Memories</button>
+  <div id="memoriesList" class="hidden">
+    <a href="2024.html">2024</a>
+    <a href="2025.html">2025</a>
+    <!-- Add more years as needed -->
+  </div>
 
-    <input type="password" id="password" placeholder="chal beta ab kar guess" style="padding: 0.6rem; border-radius: 10px; border: none;" />
-    <br/><br/>
-    <button class="btn" onclick="checkPassword()">Enter</button>
-    <p id="error" style="color: yellow; margin-top: 1rem;"></p>
-    <p id="hint" style="color: #ffe6e6; font-style: italic; margin-top: 0.5rem;"></p>
+    <div class="section">
+      <button class="btn" onclick="location.href='icecream.html'">🍦 Order Ice Cream</button>
+      <button class="btn" onclick="showPopup('gallery')">🖼️ Gallery</button>
+      <button class="btn" onclick="showPopup('edits')">🎬 Edits</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="hidePopup()"></div>
+
+  <div class="popup" id="popup-gallery">
+    <p>Gallery feature is coming soon! Stay tuned ✨</p>
+    <button class="btn" onclick="hidePopup()">Okay</button>
+  </div>
+
+  <div class="popup" id="popup-edits">
+    <p>Edits and videos will be added shortly 🎥</p>
+    <button class="btn" onclick="hidePopup()">Okay</button>
   </div>
 
   <script>
-    const correctPassword = "chup raho"; // you can change this to anything
-    let attempts = 0;
+     
+    const memoriesBtn = document.getElementById('memoriesBtn');
+    const memoriesList = document.getElementById('memoriesList');
 
-    function checkPassword() {
-      const input = document.getElementById("password").value.trim().toLowerCase();
-      const error = document.getElementById("error");
-      const hint = document.getElementById("hint");
+    memoriesBtn.addEventListener('click', () => {
+      memoriesList.classList.toggle('hidden');
+    });
+    
+    function showPopup(type) {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById(`popup-${type}`).style.display = 'block';
+    }
 
-      if (input === correctPassword) {
-        window.location.href = "home.html";
-      } else {
-        attempts++;
-        error.textContent = "Nope, that's not it!";
-        
-        if (attempts === 1) {
-          hint.textContent = "Hint 1: its all in lowercase and no numbers and there are total 2 words";
-        } else if (attempts === 2) {
-          hint.textContent = "Hint 2: you use this line very often";
-        } else if (attempts === 3) {
-          hint.textContent = "Hint 3: mostly used when u get mad or blush or something like that, thats in hindi";
-        } else {
-          hint.textContent = "Final Hint: u say it when u want me to shut up";
-        }
-      }
+    function hidePopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('popup-gallery').style.display = 'none';
+      document.getElementById('popup-edits').style.display = 'none';
     }
   </script>
 </body>
