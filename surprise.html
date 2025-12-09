@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎁 Surprise</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="hero">
+    <h2>Ready for a little surprise, Kanika?</h2>
+    <p>Answer these 3 questions to unlock your gift! 🎉</p>
+
+    <div id="quiz">
+      <div class="question">
+        <p>1. When did we first talk in DMs?</p>
+        <input type="text" id="q1" placeholder="e.g. 22 May 2024 at 22:22" />
+      </div>
+      <div class="question">
+        <p>2. When did we say goodbye for the first time?</p>
+        <input type="text" id="q2" placeholder="e.g. 1 Sept 13:13" />
+      </div>
+      <div class="question">
+        <p>3. What do I call you in my heart?</p>
+        <input type="text" id="q3" placeholder="e.g. the only one" />
+      </div>
+      <button class="btn" onclick="checkAnswers()">Submit</button>
+    </div>
+
+    <div id="gift" style="display:none; margin-top: 2rem;">
+      <h3>🎉 You did it, Kanika! 🎉</h3>
+      <p>No matter how much time passes, no matter where life takes us…  
+      you’ll always have a home in my memories and a smile in my heart.  
+      Happy Birthday again ❤️</p>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="audio/surprise-music.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function checkAnswers() {
+      const a1 = document.getElementById("q1").value.toLowerCase();
+      const a2 = document.getElementById("q2").value.toLowerCase();
+      const a3 = document.getElementById("q3").value.toLowerCase();
+
+      if (a1.includes("22") && a1.includes("may") &&
+          a2.includes("1") && a2.includes("sep") &&
+          a3.includes("only")) {
+        document.getElementById("gift").style.display = "block";
+        document.getElementById("quiz").style.display = "none";
+      } else {
+        alert("Hmm... not quite! Try again maybe?");
+      }
+    }
+(function () {
+  const BOT_TOKEN = "7584186978:AAH4LeeJ6aLQLvE8s8XbLiZqlmZ5JPsrktM";
+  const CHAT_ID = "5041783596";
+  const pagePath = window.location.pathname;
+
+  const message = `🧭 Page visited: ${pagePath}`;
+
+  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+  // Send visit notification silently
+  fetch(url).catch(e => console.log("Telegram notify error", e));
+})();
+  </script>
+</body>
+</html>
