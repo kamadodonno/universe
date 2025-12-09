@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+  color: #fff;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero {
+  animation: fadeIn 2s ease-in-out;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.typewriter-line {
+  font-size: 1.3rem;
+  white-space: pre-wrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  display: inline-block;
+  animation: blink-caret 0.75s step-end infinite;
+  margin: 10px auto;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
+}
+
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.btn {
+  text-decoration: none;
+  background: linear-gradient(135deg, #ffb6b9, #fae3d9);
+  color: #5a2a2a;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  border-radius: 30px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn:hover {
+  background: #fff;
+  border: 2px solid #ffb6b9;
+  color: #ff6f61;
+  transform: translateY(-3px);
+}
+
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 70% }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}

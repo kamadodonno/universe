@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Someone Special</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="hero">
+    <h2>Hey Kanika 💖</h2>
+    <p>A VERY VERY VERY HAPPY BITHDAY TO YOU <br>here i have something for you... but you need to guess the password first!</p>
+
+    <input type="password" id="password" placeholder="chal beta ab kar guess" style="padding: 0.6rem; border-radius: 10px; border: none;" />
+    <br/><br/>
+    <button class="btn" onclick="checkPassword()">Enter</button>
+    <p id="error" style="color: yellow; margin-top: 1rem;"></p>
+    <p id="hint" style="color: #ffe6e6; font-style: italic; margin-top: 0.5rem;"></p>
+  </div>
+
+  <script>
+    const correctPassword = "chup raho"; // you can change this to anything
+    let attempts = 0;
+
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim().toLowerCase();
+      const error = document.getElementById("error");
+      const hint = document.getElementById("hint");
+
+      if (input === correctPassword) {
+        window.location.href = "home.html";
+      } else {
+        attempts++;
+        error.textContent = "Nope, that's not it!";
+        
+        if (attempts === 1) {
+          hint.textContent = "Hint 1: its all in lowercase and no numbers and there are total 2 words";
+        } else if (attempts === 2) {
+          hint.textContent = "Hint 2: you use this line very often";
+        } else if (attempts === 3) {
+          hint.textContent = "Hint 3: mostly used when u get mad or blush or something like that, thats in hindi";
+        } else {
+          hint.textContent = "Final Hint: u say it when u want me to shut up";
+        }
+      }
+    }
+  </script>
+<script src="js/notify.js"></script>
+</body>
+</html>

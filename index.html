@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanika's Corner</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fbefff, #e4d4ff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      padding: 50px 20px;
+    }
+    h1 {
+      color: #6b3fa0;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+    .btn {
+      background-color: #6b3fa0;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #5a2e85;
+    }
+    .section {
+      margin-top: 50px;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 999;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 998;
+    }
+    .hidden {
+      display: none;
+    }
+
+    #memoriesList {
+      margin-top: 10px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    #memoriesList a {
+      display: block;
+      margin: 5px 0;
+      color: #6b3fa0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #memoriesList a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kanika's Corner 💜</h1>
+    <p>A journey of laughs, surprises, ice creams, and everything Kanika 🌸</p>
+    <button class="btn" id="memoriesBtn">📚 Memories</button>
+  <div id="memoriesList" class="hidden">
+    <a href="birthday.html">2024</a>
+    <a href="2025.html">2025</a>
+    <!-- Add more years as needed -->
+  </div>
+
+    <div class="section">
+      <button class="btn" onclick="location.href='icecream.html'">🍦 Order Ice Cream</button>
+      <button class="btn" onclick="showPopup('gallery')">🖼️ Gallery</button>
+      <button class="btn" onclick="showPopup('edits')">🎬 Edits</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="hidePopup()"></div>
+
+  <div class="popup" id="popup-gallery">
+    <p>Gallery feature is coming soon! Stay tuned ✨</p>
+    <button class="btn" onclick="hidePopup()">Okay</button>
+  </div>
+
+  <div class="popup" id="popup-edits">
+    <p>Edits and videos will be added shortly 🎥</p>
+    <button class="btn" onclick="hidePopup()">Okay</button>
+  </div>
+
+  <script>
+     
+    const memoriesBtn = document.getElementById('memoriesBtn');
+    const memoriesList = document.getElementById('memoriesList');
+
+    memoriesBtn.addEventListener('click', () => {
+      memoriesList.classList.toggle('hidden');
+    });
+
+    function showPopup(type) {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById(`popup-${type}`).style.display = 'block';
+    }
+
+    function hidePopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('popup-gallery').style.display = 'none';
+      document.getElementById('popup-edits').style.display = 'none';
+    }
+  </script>
+<script src="js/notify.js"></script>
+</body>
+</html>

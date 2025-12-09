@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heyyy My Love</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .reply-buttons, #replyForm, #followUpContainer {
+      margin-top: 15px;
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ffb6c1;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #ffcdd2;
+    }
+    #replyForm input {
+      padding: 10px;
+      width: 250px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    #statusMsg {
+      margin-top: 10px;
+      font-style: italic;
+      color: #fff;
+    }
+    #answerBtn {
+      background-color: #ffd700;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1> Hello there ❤️</h1>
+    <div class="container">
+      <p id="typewriter-line-1" class="typewriter-line"></p>
+      <p id="typewriter-line-2" class="typewriter-line"></p>
+      <button id="answerBtn" onclick="showInitialOptions()">Answer</button>
+    </div>
+
+    <div class="reply-buttons" id="initialOptions">
+      <button onclick="handleReply('yes')">Yes 😊</button>
+      <button onclick="handleReply('no')">No 😔</button>
+      <button onclick="handleReply('shutup')">Shut Up 🙄</button>
+    </div>
+
+    <div id="followUpContainer"></div>
+
+    <form id="replyForm">
+      <input type="text" id="userText" placeholder="What happened?" required />
+      <button type="submit">Send</button>
+    </form>
+    <p id="statusMsg"></p>
+
+    <div class="button-group">
+      <a href="something.html" class="btn">Birthday Wishes</a>
+      <a href="memory.html" class="btn">Memory Timeline</a>
+      <a href="letter.html" class="btn">A Letter for You</a>
+      <a href="icecream.html" class="btn">Ice Cream</a>
+    </div>
+    <a href="expres.html" class="btn">**** ****</a>
+  </div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="audio/bg-music.mp3" type="audio/mp3" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script src="js/notify.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const line1 = "how are you ma'am, ";
+      const line2 = "all good???";
+      const speed = 50;
+      let i = 0, j = 0;
+      const el1 = document.getElementById("typewriter-line-1");
+      const el2 = document.getElementById("typewriter-line-2");
+
+      function typeLine1() {
+        if (i < line1.length) {
+          el1.innerHTML += line1.charAt(i);
+          i++;
+          setTimeout(typeLine1, speed);
+        } else {
+          setTimeout(typeLine2, 500);
+        }
+      }
+
+      function typeLine2() {
+        if (j < line2.length) {
+          el2.innerHTML += line2.charAt(j);
+          j++;
+          setTimeout(typeLine2, speed);
+        }
+      }
+
+      typeLine1();
+    });
+
+    function showInitialOptions() {
+      document.getElementById("initialOptions").style.display = "block";
+    }
+
+
+    function handleReply(choice) {
+      const followUp = document.getElementById("followUpContainer");
+      const form = document.getElementById("replyForm");
+      const status = document.getElementById("statusMsg");
+
+      followUp.innerHTML = "";
+      form.style.display = "none";
+      status.textContent = "";
+      followUp.style.display = "block";
+
+      if (choice === 'yes') {
+        status.textContent = "That’s nice to hear! 💖";
+        notifyTelegram("She replied: Yes 😊");
+      } else if (choice === 'no') {
+        notifyTelegram("She replied: No 😔");
+        form.style.display = "block";
+      } else if (choice === 'shutup') {
+        notifyTelegram("She replied: Shut Up 🙄");
+        followUp.innerHTML = `
+          <p>bata do</p>
+          <button onclick="secondLevel('okay')">Okay</button>
+          <button onclick="secondLevel('chup')">Chup hojao</button>
+        `;
+      }
+    }
+
+    function secondLevel(choice) {
+      const followUp = document.getElementById("followUpContainer");
+      if (choice === 'okay') {
+        notifyTelegram("She replied: Okay");
+        document.getElementById("replyForm").style.display = "block";
+      } else {
+        notifyTelegram("She replied: Chup hojao");
+        followUp.innerHTML = `
+          <p>BATAOO NAAA</p>
+          <button onclick="thirdLevel('okay')">Okay</button>
+          <button onclick="thirdLevel('ruk')">BHAI RUK JAA</button>
+        `;
+      }
+    }
+
+    function thirdLevel(choice) {
+      const followUp = document.getElementById("followUpContainer");
+      if (choice === 'okay') {
+        notifyTelegram("She replied: Okay (final)");
+        document.getElementById("replyForm").style.display = "block";
+      } else {
+        notifyTelegram("She replied: BHAI RUK JAA");
+        followUp.innerHTML = `
+          <p>LE AB TO OPTION HI NAA DE RAHA CHUP HONE KA AB BATA DE</p>
+        `;
+        document.getElementById("replyForm").style.display = "block";
+      }
+    }
+
+
+
+    document.getElementById("replyForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const text = document.getElementById("userText").value;
+      const status = document.getElementById("statusMsg");
+
+      status.textContent = "AI is thinking... will reply soon, please wait.";
+
+      notifyTelegram(`She said: ${text}`);
+      document.getElementById("replyForm").reset();
+    });
+
+    async function notifyTelegram(message) {
+      const BOT_TOKEN = "7584186978:AAH4LeeJ6aLQLvE8s8XbLiZqlmZ5JPsrktM";
+      const CHAT_ID = "5041783596";
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+      try {
+        await fetch(url);
+      } catch (error) {
+        console.error("Telegram error:", error);
+      }
+    }
+  </script>
+</body>
+</html>
