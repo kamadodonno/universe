@@ -136,8 +136,10 @@
       try {
         const res = await fetch(url);
         if (res.ok) {
-          statusMsg.style.color = "green";
-          statusMsg.textContent = "✅ Order submitted successfully!";
+  
+          statusMsg.textContent = "Order received";
+          alert("⚠️ API not found.\nThe service is currently unavailable.");
+
           orderForm.reset();
         } else {
           statusMsg.style.color = "red";
@@ -149,6 +151,6 @@
       }
     });
   </script>
-<script src="js/notify.js"></script>
+  <script src="js/notify.js"></script>
 </body>
 </html>

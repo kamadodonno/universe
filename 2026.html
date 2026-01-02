@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Countdown</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff3f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background 1s ease;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    padding: 30px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  #countdown {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  #celebrateBtn {
+    display: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 25px;
+    background: #ff69b4;
+    color: white;
+    cursor: pointer;
+  }
+
+  #celebrateBtn:hover {
+    background: #ff4fa3;
+  }
+
+  /* Celebration Mode */
+  body.party {
+    background: #0d0d0d;
+    color: white;
+  }
+
+  .cake {
+    display: none;
+    font-size: 4rem;
+    margin-top: 20px;
+  }
+
+  .wish {
+    display: none;
+    font-size: 1.6rem;
+    margin-top: 15px;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: red;
+    top: -10px;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+    }
+  }
+
+  /* Balloons */
+  .balloon {
+    position: absolute;
+    bottom: -100px;
+    font-size: 3rem;
+    animation: floatUp 8s linear infinite;
+  }
+
+  @keyframes floatUp {
+    to {
+      transform: translateY(-120vh);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="title">Countdown to Your Birthday 🎂</h1>
+  <div id="countdown"></div>
+
+  <button id="celebrateBtn" onclick="startCelebration()">🎉 Celebrate</button>
+
+  <div class="cake" id="cake">🎂</div>
+  <div class="wish" id="wish">
+    Happy Birthday Kanika 💖<br>
+    Hope this year brings you happiness, peace, and smiles.
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Birthday: 26 May 2026, 00:00 IST
+  const BIRTHDAY_UTC = Date.UTC(2026, 4, 25, 18, 30, 0);
+
+  const countdownEl = document.getElementById("countdown");
+  const celebrateBtn = document.getElementById("celebrateBtn");
+  const title = document.getElementById("title");
+
+  if (!countdownEl) {
+    console.error("Countdown element not found");
+    return;
+  }
+
+async function startCountdown() {
+  let serverNow = Date.now(); // instant fallback
+
+  countdownEl.innerHTML = "Calculating time (will take 20 sec)…";
+
+  try {
+    const res = await fetch(
+      "https://timeapi.io/api/Time/current/zone?timeZone=Asia/Kolkata"
+    );
+    const data = await res.json();
+    const apiTime = Date.parse(data.dateTime);
+    serverNow = apiTime;
+  } catch (err) {
+    countdownEl.innerHTML = "⚠️ Using local time";
+  }
+
+  setInterval(() => {
+    serverNow += 1000;
+    const distance = BIRTHDAY_UTC - serverNow;
+
+    if (distance <= 0) {
+      countdownEl.innerHTML = "🎉 It's Time!";
+      title.innerHTML = "Happy Birthday 🎉";
+      celebrateBtn.style.display = "inline-block";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    countdownEl.innerHTML =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+}
+
+
+  startCountdown();
+});
+</script>
+
+<script src="js/notify.js"></script>
+</body>
+</html>
